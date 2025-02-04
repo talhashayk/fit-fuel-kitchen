@@ -1,0 +1,6 @@
+module.exports = {
+  reactStrictMode: true,        
+  basePath: '/fit-fuel-kitchen', 
+  assetPrefix: '/fit-fuel-kitchen/',
+  output: 'export', 
+}
