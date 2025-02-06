@@ -16,17 +16,17 @@ export default function Home() {
 
 			{/* Meal Size */}
 			<div className="mb-6 w-full max-w-lg">
-				<h2 className="text-xl font-semibold mb-2">Meal Size:</h2>
-				<div className="flex flex-wrap justify-center gap-4">
+				<h2 className="text-xl font-semibold mb-2">Meal Size</h2>
+				<div className="flex flex-wrap justify-start gap-4">
 					{["loss", "balance", "gain"].map((option) => (
 						<button
 							key={option}
 							onClick={() => setMealSize(option)}
-							className={`px-6 py-3 rounded-lg text-white ${
+							className={`px-3 py-1 rounded-sm text-white ${
 								mealSize === option
-									? "bg-blue-600"
-									: "bg-blue-800"
-							} hover:bg-blue-600 transition`}
+									? "bg-teal-600 font-bold"
+									: "bg-teal-950"
+							} hover:bg-teal-600 transition`}
 						>
 							{option}
 						</button>
@@ -36,8 +36,8 @@ export default function Home() {
 
 			{/* Base */}
 			<div className="mb-6 w-full max-w-lg">
-				<h2 className="text-xl font-semibold mb-2">Base:</h2>
-				<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+				<h2 className="text-xl font-semibold mb-2">Base</h2>
+				<div className="flex flex-wrap justify-start gap-4">
 					{[
 						"rice",
 						"pasta",
@@ -50,11 +50,11 @@ export default function Home() {
 						<button
 							key={option}
 							onClick={() => setBase(option)}
-							className={`px-6 py-3 rounded-lg text-white ${
+							className={`px-3 py-1 rounded-sm text-white ${
 								base === option
-									? "bg-yellow-600"
-									: "bg-yellow-800"
-							} hover:bg-yellow-600 transition`}
+									? "bg-amber-600 font-bold"
+									: "bg-amber-950"
+							} hover:bg-amber-600 transition`}
 						>
 							{option}
 						</button>
@@ -64,18 +64,18 @@ export default function Home() {
 
 			{/* Meat */}
 			<div className="mb-6 w-full max-w-lg">
-				<h2 className="text-xl font-semibold mb-2">Meat:</h2>
-				<div className="flex flex-wrap justify-center gap-4">
+				<h2 className="text-xl font-semibold mb-2">Meat</h2>
+				<div className="flex flex-wrap justify-start gap-4">
 					{["steak", "beef chilli", "chicken", "tuna"].map(
 						(option) => (
 							<button
 								key={option}
 								onClick={() => setMeat(option)}
-								className={`px-6 py-3 rounded-lg text-white ${
+								className={`px-3 py-1 rounded-sm text-white ${
 									meat === option
-										? "bg-red-600"
-										: "bg-red-800"
-								} hover:bg-red-600 transition`}
+										? "bg-rose-600 font-bold"
+										: "bg-rose-950"
+								} hover:bg-rose-600 transition`}
 							>
 								{option}
 							</button>
@@ -84,10 +84,11 @@ export default function Home() {
 				</div>
 			</div>
 
+			{/* Flavours */}
 			{meat === "chicken" && (
 				<div className="mb-6 w-full max-w-lg">
-					<h2 className="text-xl font-semibold mb-2">Flavours:</h2>
-					<div className="flex flex-wrap justify-center gap-4">
+					<h2 className="text-xl font-semibold mb-2">Flavours</h2>
+					<div className="flex flex-wrap justify-start gap-4">
 						{[
 							"plain",
 							"peri",
@@ -99,11 +100,11 @@ export default function Home() {
 							<button
 								key={option}
 								onClick={() => setFlavour(option)}
-								className={`px-6 py-3 rounded-lg text-white ${
+								className={`px-3 py-1 rounded-sm text-white ${
 									flavour === option
-										? "bg-yellow-600"
-										: "bg-yellow-800"
-								} hover:bg-yellow-600 transition`}
+										? "bg-violet-600 font-bold"
+										: "bg-violet-950"
+								} hover:bg-violet-600 transition`}
 							>
 								{option}
 							</button>
@@ -114,8 +115,8 @@ export default function Home() {
 
 			{/* Veg */}
 			<div className="mb-6 w-full max-w-lg">
-				<h2 className="text-xl font-semibold mb-2">Veg:</h2>
-				<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+				<h2 className="text-xl font-semibold mb-2">Veg</h2>
+				<div className="flex flex-wrap justify-start gap-4">
 					{[
 						"broccoli",
 						"carrots",
@@ -127,9 +128,11 @@ export default function Home() {
 						<button
 							key={option}
 							onClick={() => setVeg(option)}
-							className={`px-6 py-3 rounded-lg text-white ${
-								veg === option ? "bg-green-600" : "bg-green-800"
-							} hover:bg-green-600 transition`}
+							className={`px-3 py-1 rounded-sm text-white ${
+								veg === option
+									? "bg-emerald-600 font-bold"
+									: "bg-emerald-950"
+							} hover:bg-emerald-600 transition`}
 						>
 							{option}
 						</button>
@@ -139,8 +142,8 @@ export default function Home() {
 
 			{/* Dressing */}
 			<div className="mb-6 w-full max-w-lg">
-				<h2 className="text-xl font-semibold mb-2">Dressing:</h2>
-				<div className="flex flex-wrap justify-center gap-4">
+				<h2 className="text-xl font-semibold mb-2">Dressing</h2>
+				<div className="flex flex-wrap justify-start gap-4">
 					{[
 						"house mayo",
 						"sriracha chilli",
@@ -152,11 +155,11 @@ export default function Home() {
 						<button
 							key={option}
 							onClick={() => setDressing(option)}
-							className={`px-6 py-3 rounded-lg text-white ${
+							className={`px-3 py-1 rounded-sm text-white ${
 								dressing === option
-									? "bg-purple-600"
-									: "bg-purple-800"
-							} hover:bg-purple-600 transition`}
+									? "bg-indigo-600"
+									: "bg-indigo-950"
+							} hover:bg-indigo-600 transition`}
 						>
 							{option}
 						</button>
@@ -166,7 +169,7 @@ export default function Home() {
 
 			{/* Selected Meal Summary */}
 			<div className="mt-6 w-full max-w-lg">
-				<h3 className="text-xl font-semibold">Your Meal:</h3>
+				<h3 className="text-xl font-semibold">Your Meal</h3>
 				<p>Meal Size: {mealSize}</p>
 				<p>Base: {base}</p>
 				<p>
