@@ -12,7 +12,7 @@ export default function Home() {
 
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center bg-black text-white p-4">
-			<h1 className="text-3xl font-bold mb-6">Create Your Meal</h1>
+			<h1 className="text-3xl font-bold mb-6">FFK Chef's Calculator</h1>
 
 			{/* Meal Size */}
 			<div className="mb-6 w-full max-w-lg">
@@ -24,7 +24,7 @@ export default function Home() {
 							onClick={() => setMealSize(option)}
 							className={`px-3 py-1 rounded-sm text-white ${
 								mealSize === option
-									? "bg-teal-600 font-bold"
+									? "bg-teal-600"
 									: "bg-teal-950"
 							} hover:bg-teal-600 transition`}
 						>
@@ -52,7 +52,7 @@ export default function Home() {
 							onClick={() => setBase(option)}
 							className={`px-3 py-1 rounded-sm text-white ${
 								base === option
-									? "bg-amber-600 font-bold"
+									? "bg-amber-600"
 									: "bg-amber-950"
 							} hover:bg-amber-600 transition`}
 						>
@@ -73,7 +73,7 @@ export default function Home() {
 								onClick={() => setMeat(option)}
 								className={`px-3 py-1 rounded-sm text-white ${
 									meat === option
-										? "bg-rose-600 font-bold"
+										? "bg-rose-600"
 										: "bg-rose-950"
 								} hover:bg-rose-600 transition`}
 							>
@@ -102,7 +102,7 @@ export default function Home() {
 								onClick={() => setFlavour(option)}
 								className={`px-3 py-1 rounded-sm text-white ${
 									flavour === option
-										? "bg-violet-600 font-bold"
+										? "bg-violet-600"
 										: "bg-violet-950"
 								} hover:bg-violet-600 transition`}
 							>
@@ -130,7 +130,7 @@ export default function Home() {
 							onClick={() => setVeg(option)}
 							className={`px-3 py-1 rounded-sm text-white ${
 								veg === option
-									? "bg-emerald-600 font-bold"
+									? "bg-emerald-600"
 									: "bg-emerald-950"
 							} hover:bg-emerald-600 transition`}
 						>
