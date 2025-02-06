@@ -12,7 +12,7 @@ export default function Home() {
 
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center bg-black text-white p-4">
-			<h1 className="text-3xl font-bold mb-6">Create Your Meal</h1>
+			<h1 className="text-3xl font-bold mb-6">Create Your TEST Meal</h1>
 
 			{/* Meal Size */}
 			<div className="mb-6 w-full max-w-lg">
