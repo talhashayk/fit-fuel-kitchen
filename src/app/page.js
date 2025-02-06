@@ -16,7 +16,7 @@ export default function Home() {
 
 			{/* Meal Size */}
 			<div className="mb-6 w-full max-w-lg">
-				<h2 className="text-xl font-semibold mb-2">Meal Size</h2>
+				<h2 className="text-xl font-semibold mb-2">Meal size</h2>
 				<div className="flex flex-wrap justify-start gap-4">
 					{["loss", "balance", "gain"].map((option) => (
 						<button
@@ -170,13 +170,15 @@ export default function Home() {
 			{/* Selected Meal Summary */}
 			<div className="mt-6 w-full max-w-lg">
 				<h3 className="text-xl font-semibold">Your Meal</h3>
-				<p>Meal Size: {mealSize}</p>
-				<p>Base: {base}</p>
+				<p>Meal size: {mealSize ? mealSize : "none"}</p>
+				<p>Base: {base ? base : "none"}</p>
 				<p>
-					Meat: {meat} {meat === "chicken" && `(Flavour: ${flavour})`}
+					Meat:{" "}
+					{meat === "chicken" && `${flavour ? flavour : "plain"}`}{" "}
+					{meat ? meat : "none"}
 				</p>
-				<p>Veg: {veg}</p>
-				<p>Dressing: {dressing}</p>
+				<p>Veg: {veg ? veg : "none"}</p>
+				<p>Dressing: {dressing ? dressing : "none"}</p>
 			</div>
 		</div>
 	);
