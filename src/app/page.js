@@ -36,7 +36,10 @@ export default function Home() {
 
 			{/* Base */}
 			<div className="mb-6 w-full max-w-lg">
-				<h2 className="text-xl font-semibold mb-2">Base</h2>
+				<div className="flex justify-between items-end mb-2">
+					<h2 className="text-xl font-semibold">Base</h2>
+					<h3 className="text-m">Choose up to 2</h3>
+				</div>
 				<div className="flex flex-wrap justify-start gap-4">
 					{[
 						"rice",
@@ -64,7 +67,10 @@ export default function Home() {
 
 			{/* Meat */}
 			<div className="mb-6 w-full max-w-lg">
-				<h2 className="text-xl font-semibold mb-2">Meat</h2>
+				<div className="flex justify-between items-end mb-2">
+					<h2 className="text-xl font-semibold">Meat</h2>
+					<h3 className="text-m">Choose up to 2</h3>
+				</div>
 				<div className="flex flex-wrap justify-start gap-4">
 					{["steak", "beef chilli", "chicken", "tuna"].map(
 						(option) => (
@@ -115,7 +121,10 @@ export default function Home() {
 
 			{/* Veg */}
 			<div className="mb-6 w-full max-w-lg">
-				<h2 className="text-xl font-semibold mb-2">Veg</h2>
+				<div className="flex justify-between items-end mb-2">
+					<h2 className="text-xl font-semibold">Veg</h2>
+					<h3 className="text-m">Choose up to 3</h3>
+				</div>
 				<div className="flex flex-wrap justify-start gap-4">
 					{[
 						"broccoli",
