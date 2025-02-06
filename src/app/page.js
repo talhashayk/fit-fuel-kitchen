@@ -43,6 +43,18 @@ export default function Home() {
 		});
 	};
 
+	const handleMealSizeClick = (option) => {
+		setMealSize((prev) => (prev === option ? "" : option));
+	};
+
+	const handleFlavourClick = (option) => {
+		setFlavour((prev) => (prev === option ? "" : option));
+	};
+
+	const handleDressingClick = (option) => {
+		setDressing((prev) => (prev === option ? "" : option));
+	};
+
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center bg-black text-white p-4">
 			<h1 className="text-3xl font-bold mb-6">
@@ -56,7 +68,7 @@ export default function Home() {
 					{["loss", "balance", "gain"].map((option) => (
 						<button
 							key={option}
-							onClick={() => setMealSize(option)}
+							onClick={() => handleMealSizeClick(option)}
 							className={`px-3 py-1 rounded-sm text-white ${
 								mealSize === option
 									? "bg-teal-600"
@@ -100,10 +112,8 @@ export default function Home() {
 				</div>
 
 				{base.length > 0 && (
-					<div className="mt-4 p-2 bg-gray-800 rounded-md">
-						<h3 className="text-lg font-semibold">
-							Selected Bases:
-						</h3>
+					<div className="mt-4 p-2 bg-gray-800 rounded-sm">
+						<h3 className="text-md font-semibold">Selection</h3>
 						<p>{base.join(", ")}</p>
 					</div>
 				)}
@@ -135,10 +145,8 @@ export default function Home() {
 
 				{/* Display selected meats below */}
 				{meat.length > 0 && (
-					<div className="mt-4 p-2 bg-gray-800 rounded-md">
-						<h3 className="text-lg font-semibold">
-							Selected Meats:
-						</h3>
+					<div className="mt-4 p-2 bg-gray-800 rounded-sm">
+						<h3 className="text-md font-semibold">Selection</h3>
 						<p>{meat.join(", ")}</p>
 					</div>
 				)}
@@ -152,16 +160,15 @@ export default function Home() {
 					</h2>
 					<div className="flex flex-wrap justify-start gap-4">
 						{[
-							"plain",
 							"peri",
 							"tandoori",
 							"jerk",
-							"mango and lime",
-							"lemon and herb",
+							"mango & lime",
+							"lemon & herb",
 						].map((option) => (
 							<button
 								key={option}
-								onClick={() => setFlavour(option)}
+								onClick={() => handleFlavourClick(option)}
 								className={`px-3 py-1 rounded-sm text-white ${
 									flavour === option
 										? "bg-violet-600"
@@ -206,8 +213,8 @@ export default function Home() {
 
 				{/* Display selected vegetables below */}
 				{veg.length > 0 && (
-					<div className="mt-4 p-2 bg-gray-800 rounded-md">
-						<h3 className="text-lg font-semibold">Selected Veg:</h3>
+					<div className="mt-4 p-2 bg-gray-800 rounded-sm">
+						<h3 className="text-md font-semibold">Selection</h3>
 						<p>{veg.join(", ")}</p>
 					</div>
 				)}
@@ -227,7 +234,7 @@ export default function Home() {
 					].map((option) => (
 						<button
 							key={option}
-							onClick={() => setDressing(option)}
+							onClick={() => handleDressingClick(option)}
 							className={`px-3 py-1 rounded-sm text-white ${
 								dressing === option
 									? "bg-indigo-600"
@@ -241,17 +248,36 @@ export default function Home() {
 			</div>
 
 			{/* Selected Meal Summary */}
-			<div className="mt-6 w-full max-w-lg">
-				<h3 className="text-xl font-semibold">Your Meal</h3>
-				<p>Meal size: {mealSize ? mealSize : "none"}</p>
-				<p>Base: {base.join(", ")}</p>
-				<p>
-					Meat:{" "}
-					{meat === "chicken" && `${flavour ? flavour : "plain"}`}{" "}
-					{meat ? meat : "none"}
-				</p>
-				<p>Veg: {veg.join(", ")}</p>
-				<p>Dressing: {dressing}</p>
+			<div className="w-full max-w-lg bg-gray-800 rounded-sm p-2">
+				<h3 className="text-xl font-semibold">Summary</h3>
+				<div className="grid grid-cols-2 gap-x-2">
+					<p className="font-medium">Meal size:</p>
+					<p>{mealSize ? mealSize : "none"}</p>
+
+					<p className="font-medium">Base:</p>
+					<p>{base.length > 0 ? base.join(", ") : "none"}</p>
+
+					<p className="font-medium">Meat:</p>
+					<p>
+						{meat.length > 0
+							? meat
+									.map((m) =>
+										m === "chicken"
+											? `${
+													flavour ? flavour : "plain"
+											  } chicken`
+											: m
+									)
+									.join(", ")
+							: "none"}
+					</p>
+
+					<p className="font-medium">Veg:</p>
+					<p>{veg.length > 0 ? veg.join(", ") : "none"}</p>
+
+					<p className="font-medium">Dressing:</p>
+					<p>{dressing ? dressing : "none"}</p>
+				</div>
 			</div>
 		</div>
 	);
