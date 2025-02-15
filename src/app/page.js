@@ -56,27 +56,28 @@ export default function Home() {
 	};
 
 	return (
-		<div className="min-h-screen flex flex-col items-center justify-center bg-black text-white p-4 font-futura">
-			<h1 className="text-3xl font-semibold my-3">
+		<div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-gray-100 p-6 font-futura">
+			<h1 className="text-4xl font-bold my-4">
 				FFK Chef&apos;s Calculator
 			</h1>
 
-			<div className="bg-white p-5 pb-0 mb-5 rounded-xl">
+			<div className="bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-3xl">
 				{/* Meal Size */}
-				<div className="mb-6 w-full max-w-lg">
-					<h2 className="text-xl text-black font-semibold mb-2">
+				<div className="mb-6">
+					<h2 className="text-2xl font-medium mb-3 text-gray-200">
 						Size
 					</h2>
-					<div className="flex flex-wrap justify-start gap-4">
-						{["loss", "balance", "gain"].map((option) => (
+					<div className="flex flex-wrap gap-4">
+						{["Loss", "Balance", "Gain"].map((option) => (
 							<button
 								key={option}
 								onClick={() => handleMealSizeClick(option)}
-								className={`px-3 py-1 rounded-md text-white font-semibold ${
-									mealSize === option
-										? "bg-rose-600 bg-black border-2 border-rose-600"
-										: "bg-black border-2 border-rose-600"
-								}`}
+								className={`px-4 py-2 rounded-md font-medium transition 
+                  ${
+						mealSize === option
+							? "bg-blue-600 border border-blue-600"
+							: "bg-gray-700 border border-gray-600 hover:bg-gray-600"
+					}`}
 							>
 								{option}
 							</button>
@@ -85,106 +86,110 @@ export default function Home() {
 				</div>
 
 				{/* Base */}
-				<div className="mb-6 w-full max-w-lg">
-					<div className="flex justify-between items-end mb-2">
-						<h2 className="text-xl text-black font-semibold">
+				<div className="mb-6">
+					<div className="flex justify-between items-end mb-3">
+						<h2 className="text-2xl font-medium text-gray-200">
 							Base
 						</h2>
-						<h3 className="text-m text-black font-semibold">
+						<h3 className="text-md font-medium text-gray-400">
 							Choose 2
 						</h3>
 					</div>
-					<div className="flex flex-wrap justify-start gap-4">
+					<div className="flex flex-wrap gap-4">
 						{[
-							"rice",
-							"pasta",
-							"sweet mash",
-							"jungle salad",
-							"wrap",
-							"sub",
-							"burrito",
+							"Rice",
+							"Pasta",
+							"Sweet Mash",
+							"Jungle Salad",
+							"Wrap",
+							"Sub",
+							"Burrito",
 						].map((option) => (
 							<button
 								key={option}
 								onClick={() => handleBaseClick(option)}
-								className={`px-3 py-1 rounded-md text-white font-semibold ${
-									base.includes(option)
-										? "bg-rose-600 bg-black border-2 border-rose-600"
-										: "bg-black border-2 border-rose-600"
-								}`}
+								className={`px-4 py-2 rounded-md font-medium transition 
+                  ${
+						base.includes(option)
+							? "bg-blue-600 border border-blue-600"
+							: "bg-gray-700 border border-gray-600 hover:bg-gray-600"
+					}`}
 							>
 								{option}
 							</button>
 						))}
 					</div>
-
 					{base.length > 0 && (
-						<div className="mt-4 p-2 bg-gray-800 rounded-md bg-black border-2 border-rose-600">
-							<h3 className="text-md font-semibold">Selection</h3>
-							<p className="font-semibold">{base.join(", ")}</p>
+						<div className="mt-4 p-3 bg-gray-700 rounded-md">
+							<h3 className="text-lg font-medium mb-1">
+								Selection
+							</h3>
+							<p className="font-medium">{base.join(", ")}</p>
 						</div>
 					)}
 				</div>
 
-				{/* Meat */}
-				<div className="mb-6 w-full max-w-lg">
-					<div className="flex justify-between items-end mb-2">
-						<h2 className="text-xl text-black font-semibold">
+				{/* Protein */}
+				<div className="mb-6">
+					<div className="flex justify-between items-end mb-3">
+						<h2 className="text-2xl font-medium text-gray-200">
 							Protein
 						</h2>
-						<h3 className="text-m text-black font-semibold">
+						<h3 className="text-md font-medium text-gray-400">
 							Choose 2
 						</h3>
 					</div>
-					<div className="flex flex-wrap justify-start gap-4">
-						{["steak", "beef chilli", "chicken", "tuna"].map(
+					<div className="flex flex-wrap gap-4">
+						{["Steak", "Beef Chilli", "Chicken", "Tuna"].map(
 							(option) => (
 								<button
 									key={option}
 									onClick={() => handleMeatClick(option)}
-									className={`px-3 py-1 rounded-md text-white font-semibold ${
-										meat.includes(option)
-											? "bg-rose-600 bg-black border-2 border-rose-600"
-											: "bg-black border-2 border-rose-600"
-									}`}
+									className={`px-4 py-2 rounded-md font-medium transition 
+                    ${
+						meat.includes(option)
+							? "bg-blue-600 border border-blue-600"
+							: "bg-gray-700 border border-gray-600 hover:bg-gray-600"
+					}`}
 								>
 									{option}
 								</button>
 							)
 						)}
 					</div>
-
-					{/* Display selected meats below */}
 					{meat.length > 0 && (
-						<div className="mt-4 p-2 bg-gray-800 rounded-md bg-black border-2 border-rose-600">
-							<h3 className="text-md font-semibold">Selection</h3>
-							<p className="font-semibold">{meat.join(", ")}</p>
+						<div className="mt-4 p-3 bg-gray-700 rounded-md">
+							<h3 className="text-lg font-medium mb-1">
+								Selection
+							</h3>
+							<p className="font-medium">{meat.join(", ")}</p>
 						</div>
 					)}
 				</div>
 
-				{/* Chicken flavours */}
-				{meat.includes("chicken") && (
-					<div className="mb-6 w-full max-w-lg">
-						<h2 className="text-xl text-black font-semibold mb-2">
+				{/* Chicken Flavours */}
+				{meat.includes("Chicken") && (
+					<div className="mb-6">
+						<h2 className="text-2xl font-medium text-gray-200 mb-3">
 							Flavours (chicken)
 						</h2>
-						<div className="flex flex-wrap justify-start gap-4">
+						<div className="flex flex-wrap gap-4">
 							{[
-								"peri",
-								"tandoori",
-								"jerk",
-								"mango & lime",
-								"lemon & herb",
+								"Peri",
+								"Tandoori",
+								"Jerk",
+								"Mango & Lime",
+								"Lemon & Herb",
 							].map((option) => (
 								<button
 									key={option}
 									onClick={() => handleFlavourClick(option)}
-									className={`px-3 py-1 rounded-md text-white font-semibold ${
-										flavour === option
-											? "bg-rose-600 bg-black border-2 border-rose-600"
-											: "bg-black border-2 border-rose-600"
-									}`}
+									className={`px-4 py-2 rounded-md font-medium transition 
+                    ${
+						flavour === option
+							? "bg-blue-600 border border-blue-600"
+							: "bg-gray-700 border border-gray-600 hover:bg-gray-600"
+					}`}
 								>
 									{option}
 								</button>
@@ -193,70 +198,72 @@ export default function Home() {
 					</div>
 				)}
 
-				{/* Veg */}
-				<div className="mb-6 w-full max-w-lg">
-					<div className="flex justify-between items-end mb-2">
-						<h2 className="text-xl text-black font-semibold">
+				{/* Vegetables */}
+				<div className="mb-6">
+					<div className="flex justify-between items-end mb-3">
+						<h2 className="text-2xl font-medium text-gray-200">
 							Vegetables
 						</h2>
-						<h3 className="text-m text-black font-semibold">
+						<h3 className="text-md font-medium text-gray-400">
 							Choose 3
 						</h3>
 					</div>
-					<div className="flex flex-wrap justify-start gap-4">
+					<div className="flex flex-wrap gap-4">
 						{[
-							"broccoli",
-							"carrots",
-							"asparagus",
-							"green beans",
-							"spinach",
-							"kale",
+							"Broccoli",
+							"Carrots",
+							"Asparagus",
+							"Green beans",
+							"Spinach",
+							"Kale",
 						].map((option) => (
 							<button
 								key={option}
 								onClick={() => handleVegClick(option)}
-								className={`px-3 py-1 rounded-md text-white font-semibold ${
-									veg.includes(option)
-										? "bg-rose-600 bg-black border-2 border-rose-600"
-										: "bg-black border-2 border-rose-600"
-								}`}
+								className={`px-4 py-2 rounded-md font-medium transition 
+                    ${
+						veg.includes(option)
+							? "bg-blue-600 border border-blue-600"
+							: "bg-gray-700 border border-gray-600 hover:bg-gray-600"
+					}`}
 							>
 								{option}
 							</button>
 						))}
 					</div>
-
-					{/* Display selected vegetables below */}
 					{veg.length > 0 && (
-						<div className="mt-4 p-2 bg-gray-800 rounded-md bg-black border-2 border-rose-600">
-							<h3 className="text-md font-semibold">Selection</h3>
-							<p className="font-semibold">{veg.join(", ")}</p>
+						<div className="mt-4 p-3 bg-gray-700 rounded-md">
+							<h3 className="text-lg font-medium mb-1">
+								Selection
+							</h3>
+							<p className="font-medium">{veg.join(", ")}</p>
 						</div>
 					)}
 				</div>
 
 				{/* Dressing */}
-				<div className="mb-6 w-full max-w-lg">
-					<h2 className="text-xl text-black font-semibold mb-2">
+				<div className="mb-6">
+					<h2 className="text-2xl font-medium text-gray-200 mb-3">
 						Dressing
 					</h2>
-					<div className="flex flex-wrap justify-start gap-4">
+					<div className="flex flex-wrap gap-4">
 						{[
-							"house mayo",
-							"sriracha chilli",
-							"sweet chilli",
-							"mint yoghurt",
-							"mayo",
-							"ketchup",
+							"House Mayo",
+							"Sriracha Chilli",
+							"Sweet Chilli",
+							"Mint Yoghurt",
+							"Mayo",
+							"Ketchup",
 						].map((option) => (
 							<button
 								key={option}
 								onClick={() => handleDressingClick(option)}
-								className={`px-3 py-1 rounded-md text-white font-semibold ${
-									dressing === option
-										? "bg-rose-600 bg-black border-2 border-rose-600"
-										: "bg-black border-2 border-rose-600"
-								}`}
+								className={`px-4 py-2 rounded-md font-medium transition 
+                    ${
+						dressing === option
+							? "bg-blue-600 border border-blue-600"
+							: "bg-gray-700 border border-gray-600 hover:bg-gray-600"
+					}`}
 							>
 								{option}
 							</button>
@@ -266,21 +273,19 @@ export default function Home() {
 			</div>
 
 			{/* Selected Meal Summary */}
-			<div className="w-full max-w-lg bg-gray-800 rounded-xl p-2 bg-black border-2 border-rose-600">
-				<h3 className="text-xl font-semibold">Summary</h3>
-				<div className="grid grid-cols-2 gap-x-2">
-					<p className="font-semibold">Size:</p>
-					<p className="font-semibold">
-						{mealSize ? mealSize : "none"}
-					</p>
+			<div className="w-full max-w-3xl bg-gray-800 rounded-lg p-6 shadow-md mt-8">
+				<h3 className="text-2xl font-medium mb-4">Summary</h3>
+				<div className="grid grid-cols-2 gap-4">
+					<p className="font-medium text-gray-300">Size:</p>
+					<p className="font-medium">{mealSize || "none"}</p>
 
-					<p className="font-semibold">Base:</p>
-					<p className="font-semibold">
+					<p className="font-medium text-gray-300">Base:</p>
+					<p className="font-medium">
 						{base.length > 0 ? base.join(", ") : "none"}
 					</p>
 
-					<p className="font-semibold">Protein:</p>
-					<p className="font-semibold">
+					<p className="font-medium text-gray-300">Protein:</p>
+					<p className="font-medium">
 						{meat.length > 0
 							? meat
 									.map((m) =>
@@ -294,15 +299,13 @@ export default function Home() {
 							: "none"}
 					</p>
 
-					<p className="font-semibold">Vegetables:</p>
-					<p className="font-semibold">
+					<p className="font-medium text-gray-300">Vegetables:</p>
+					<p className="font-medium">
 						{veg.length > 0 ? veg.join(", ") : "none"}
 					</p>
 
-					<p className="font-semibold">Dressing:</p>
-					<p className="font-semibold">
-						{dressing ? dressing : "none"}
-					</p>
+					<p className="font-medium text-gray-300">Dressing:</p>
+					<p className="font-medium">{dressing || "none"}</p>
 				</div>
 			</div>
 		</div>
