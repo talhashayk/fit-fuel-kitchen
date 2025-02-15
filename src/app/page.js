@@ -3,12 +3,15 @@
 import React, { useState } from "react";
 
 export default function Home() {
-	const [mealSize, setMealSize] = useState("");
+	const [quantity, setQuantity] = useState("");
+	const [size, setSize] = useState("");
 	const [base, setBase] = useState([]);
 	const [meat, setMeat] = useState([]);
 	const [flavour, setFlavour] = useState("");
 	const [veg, setVeg] = useState([]);
 	const [dressing, setDressing] = useState("");
+	const [configQuantity, setConfigQuantity] = useState(1);
+	const [configurations, setConfigurations] = useState([]);
 
 	const handleBaseClick = (option) => {
 		setBase((prev) => {
@@ -43,8 +46,12 @@ export default function Home() {
 		});
 	};
 
-	const handleMealSizeClick = (option) => {
-		setMealSize((prev) => (prev === option ? "" : option));
+	const handleQuantityClick = (option) => {
+		setQuantity((prev) => (prev === option ? "" : option));
+	};
+
+	const handleSizeClick = (option) => {
+		setSize((prev) => (prev === option ? "" : option));
 	};
 
 	const handleFlavourClick = (option) => {
@@ -55,13 +62,81 @@ export default function Home() {
 		setDressing((prev) => (prev === option ? "" : option));
 	};
 
+	const addConfiguration = () => {
+		if (!quantity || !configQuantity) return;
+		const config = {
+			size,
+			base,
+			meat,
+			flavour,
+			veg,
+			dressing,
+			configQuantity,
+		};
+		setConfigurations((prev) => [...prev, config]);
+		setSize("");
+		setBase([]);
+		setMeat([]);
+		setFlavour("");
+		setVeg([]);
+		setDressing("");
+		setConfigQuantity(1);
+	};
+
+	// New function to update quantity of a configuration at a given index
+	const updateConfigQuantity = (index, delta) => {
+		setConfigurations((prev) => {
+			const totalWithout = prev.reduce(
+				(sum, config, i) =>
+					i === index ? sum : sum + Number(config.configQuantity),
+				0
+			);
+			const newQty = prev[index].configQuantity + delta;
+			if (newQty < 1 || totalWithout + newQty > Number(quantity))
+				return prev;
+			const newConfigs = [...prev];
+			newConfigs[index] = {
+				...newConfigs[index],
+				configQuantity: newQty,
+			};
+			return newConfigs;
+		});
+	};
+
+	// New function to remove a configuration at a given index
+	const removeConfiguration = (index) => {
+		setConfigurations((prev) => prev.filter((_, i) => i !== index));
+	};
+
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-gray-100 p-6 font-futura">
 			<h1 className="text-4xl font-bold my-4">
 				FFK Chef&apos;s Calculator
 			</h1>
-
 			<div className="bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-3xl">
+				{/* Meal Quantity */}
+				<h2 className="text-2xl font-medium mb-3 text-gray-200">
+					Total Meals
+				</h2>
+				<div className="flex flex-wrap gap-4">
+					{["10", "15", "21"].map((option) => (
+						<button
+							key={option}
+							onClick={() => handleQuantityClick(option)}
+							className={`px-4 py-2 rounded-md font-medium transition 
+                  ${
+						quantity === option
+							? "bg-blue-600 border border-blue-600"
+							: "bg-gray-700 border border-gray-600 hover:bg-gray-600"
+					}`}
+						>
+							{option}
+						</button>
+					))}
+				</div>
+			</div>
+
+			<div className="bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-3xl mt-8">
 				{/* Meal Size */}
 				<div className="mb-6">
 					<h2 className="text-2xl font-medium mb-3 text-gray-200">
@@ -71,10 +146,10 @@ export default function Home() {
 						{["Loss", "Balance", "Gain"].map((option) => (
 							<button
 								key={option}
-								onClick={() => handleMealSizeClick(option)}
+								onClick={() => handleSizeClick(option)}
 								className={`px-4 py-2 rounded-md font-medium transition 
                   ${
-						mealSize === option
+						size === option
 							? "bg-blue-600 border border-blue-600"
 							: "bg-gray-700 border border-gray-600 hover:bg-gray-600"
 					}`}
@@ -92,7 +167,7 @@ export default function Home() {
 							Base
 						</h2>
 						<h3 className="text-md font-medium text-gray-400">
-							Choose 2
+							Up to 2
 						</h3>
 					</div>
 					<div className="flex flex-wrap gap-4">
@@ -136,7 +211,7 @@ export default function Home() {
 							Protein
 						</h2>
 						<h3 className="text-md font-medium text-gray-400">
-							Choose 2
+							Up to 2
 						</h3>
 					</div>
 					<div className="flex flex-wrap gap-4">
@@ -205,7 +280,7 @@ export default function Home() {
 							Vegetables
 						</h2>
 						<h3 className="text-md font-medium text-gray-400">
-							Choose 3
+							Up to 3
 						</h3>
 					</div>
 					<div className="flex flex-wrap gap-4">
@@ -270,43 +345,196 @@ export default function Home() {
 						))}
 					</div>
 				</div>
+
+				{/* New Configuration Quantity Input */}
+				<div className="mb-6">
+					<h2 className="text-2xl font-medium mb-3 text-gray-200">
+						Quantity
+					</h2>
+					<div className="flex items-center">
+						<button
+							onClick={() =>
+								setConfigQuantity((prev) =>
+									Math.max(1, prev - 1)
+								)
+							}
+							disabled={configQuantity <= 1}
+							className="p-2 bg-gray-700 rounded-l disabled:opacity-50"
+						>
+							-
+						</button>
+						<span className="px-4 py-2 bg-gray-600">
+							{configQuantity ? configQuantity : 1}
+						</span>
+						<button
+							onClick={() =>
+								setConfigQuantity((prev) => prev + 1)
+							}
+							disabled={
+								Number(quantity) <= configQuantity ||
+								configurations.reduce(
+									(sum, config) =>
+										sum + Number(config.configQuantity),
+									0
+								) +
+									configQuantity ===
+									Number(quantity)
+							}
+							className="p-2 bg-gray-700 rounded-r disabled:opacity-50"
+						>
+							+
+						</button>
+					</div>
+				</div>
+
+				{/* Add Configuration Button */}
+				<div>
+					<button
+						onClick={addConfiguration}
+						disabled={
+							!quantity ||
+							configurations.reduce(
+								(sum, config) =>
+									sum + Number(config.configQuantity),
+								0
+							) === Number(quantity) ||
+							configurations.reduce(
+								(sum, config) =>
+									sum + Number(config.configQuantity),
+								0
+							) +
+								configQuantity >
+								Number(quantity)
+						}
+						className="px-6 py-3 rounded-md font-medium transition bg-green-600 hover:bg-green-500 disabled:opacity-50"
+					>
+						Add Meals
+					</button>
+				</div>
 			</div>
 
-			{/* Selected Meal Summary */}
+			{/* Meal Configurations Summary */}
 			<div className="w-full max-w-3xl bg-gray-800 rounded-lg p-6 shadow-md mt-8">
-				<h3 className="text-2xl font-medium mb-4">Summary</h3>
-				<div className="grid grid-cols-2 gap-4">
-					<p className="font-medium text-gray-300">Size:</p>
-					<p className="font-medium">{mealSize || "none"}</p>
-
-					<p className="font-medium text-gray-300">Base:</p>
-					<p className="font-medium">
-						{base.length > 0 ? base.join(", ") : "none"}
-					</p>
-
-					<p className="font-medium text-gray-300">Protein:</p>
-					<p className="font-medium">
-						{meat.length > 0
-							? meat
-									.map((m) =>
-										m === "chicken"
-											? `${
-													flavour ? flavour : "plain"
-											  } chicken`
-											: m
-									)
-									.join(", ")
-							: "none"}
-					</p>
-
-					<p className="font-medium text-gray-300">Vegetables:</p>
-					<p className="font-medium">
-						{veg.length > 0 ? veg.join(", ") : "none"}
-					</p>
-
-					<p className="font-medium text-gray-300">Dressing:</p>
-					<p className="font-medium">{dressing || "none"}</p>
+				<h2 className="text-2xl font-medium text-gray-200">Summary</h2>
+				<div className="flex justify-between items-end mb-3">
+					<h3 className="text-md font-medium text-gray-400">
+						Meals Configured:{" "}
+						{configurations.reduce(
+							(sum, config) =>
+								sum + Number(config.configQuantity),
+							0
+						)}
+					</h3>
+					<h3 className="text-md font-medium text-gray-400">
+						Total Meals: {quantity}
+					</h3>
 				</div>
+				{configurations.length === 0 ? (
+					<p className="font-medium">No meals added.</p>
+				) : (
+					configurations.map((config, index) => {
+						const totalWithout = configurations.reduce(
+							(sum, c, i) =>
+								i === index
+									? sum
+									: sum + Number(c.configQuantity),
+							0
+						);
+						const plusDisabled =
+							totalWithout + (config.configQuantity + 1) >
+							Number(quantity);
+						return (
+							<div
+								key={index}
+								className="relative bg-gray-700 p-4 rounded-md mt-4"
+							>
+								<div className="grid grid-cols-2 gap-4 m-auto">
+									<p className="font-medium text-gray-300">
+										Size:
+									</p>
+									<p className="font-medium">
+										{config.size || "None"}
+									</p>
+									<p className="font-medium text-gray-300">
+										Base:
+									</p>
+									<p className="font-medium">
+										{config.base.length > 0
+											? config.base.join(", ")
+											: "None"}
+									</p>
+									<p className="font-medium text-gray-300">
+										Protein:
+									</p>
+									<p className="font-medium">
+										{config.meat.length > 0
+											? config.meat
+													.map((m) =>
+														m === "Chicken"
+															? `${
+																	config.flavour
+																		? config.flavour
+																		: "Plain"
+															  } Chicken`
+															: m
+													)
+													.join(", ")
+											: "None"}
+									</p>
+									<p className="font-medium text-gray-300">
+										Vegetables:
+									</p>
+									<p className="font-medium">
+										{config.veg.length > 0
+											? config.veg.join(", ")
+											: "None"}
+									</p>
+									<p className="font-medium text-gray-300">
+										Dressing:
+									</p>
+									<p className="font-medium">
+										{config.dressing || "None"}
+									</p>
+								</div>
+								<div className="flex justify-between mt-4">
+									<div className="flex">
+										<button
+											onClick={() =>
+												updateConfigQuantity(index, -1)
+											}
+											disabled={
+												config.configQuantity <= 1
+											}
+											className="pb-1 px-2 bg-gray-600 rounded-l disabled:opacity-50"
+										>
+											-
+										</button>
+										<span className="py-1 px-2 bg-blue-600 border-2 border-blue-600 text-white text-sm">
+											{config.configQuantity}
+										</span>
+										<button
+											onClick={() =>
+												updateConfigQuantity(index, 1)
+											}
+											disabled={plusDisabled}
+											className="py-1 px-2 bg-gray-600 rounded-r disabled:opacity-50"
+										>
+											+
+										</button>
+									</div>
+									<button
+										onClick={() =>
+											removeConfiguration(index)
+										}
+										className="px-3 py-1 bg-red-600 hover:bg-red-500 rounded-md text-white font-medium"
+									>
+										Remove
+									</button>
+								</div>
+							</div>
+						);
+					})
+				)}
 			</div>
 		</div>
 	);
