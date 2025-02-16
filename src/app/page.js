@@ -83,7 +83,6 @@ export default function Home() {
 		setConfigQuantity(1);
 	};
 
-	// New function to update quantity of a configuration at a given index
 	const updateConfigQuantity = (index, delta) => {
 		setConfigurations((prev) => {
 			const totalWithout = prev.reduce(
@@ -103,7 +102,6 @@ export default function Home() {
 		});
 	};
 
-	// New function to remove a configuration at a given index
 	const removeConfiguration = (index) => {
 		setConfigurations((prev) => prev.filter((_, i) => i !== index));
 	};
@@ -346,7 +344,6 @@ export default function Home() {
 					</div>
 				</div>
 
-				{/* New Configuration Quantity Input */}
 				<div className="mb-6">
 					<h2 className="text-2xl font-medium mb-3 text-gray-200">
 						Quantity
@@ -387,7 +384,6 @@ export default function Home() {
 					</div>
 				</div>
 
-				{/* Add Configuration Button */}
 				<div>
 					<button
 						onClick={addConfiguration}
@@ -406,7 +402,7 @@ export default function Home() {
 								configQuantity >
 								Number(quantity)
 						}
-						className="px-6 py-3 rounded-md font-medium transition bg-green-600 hover:bg-green-500 disabled:opacity-50"
+						className="px-4 py-2 rounded-md font-medium transition bg-green-600 hover:bg-green-500 disabled:opacity-50"
 					>
 						Add Meals
 					</button>
@@ -509,7 +505,7 @@ export default function Home() {
 										>
 											-
 										</button>
-										<span className="py-1 px-2 bg-blue-600 border-2 border-blue-600 text-white text-sm">
+										<span className="py-2 px-4 bg-blue-600 border-2 border-blue-600 text-white text-sm">
 											{config.configQuantity}
 										</span>
 										<button
@@ -526,7 +522,7 @@ export default function Home() {
 										onClick={() =>
 											removeConfiguration(index)
 										}
-										className="px-3 py-1 bg-red-600 hover:bg-red-500 rounded-md text-white font-medium"
+										className="px-4 py-2 bg-red-600 hover:bg-red-500 rounded-md text-white font-medium"
 									>
 										Remove
 									</button>
