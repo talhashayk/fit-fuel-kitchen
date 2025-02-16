@@ -62,6 +62,11 @@ export default function Home() {
 		setDressing((prev) => (prev === option ? "" : option));
 	};
 
+	const totalConfigured = configurations.reduce(
+		(sum, config) => sum + Number(config.configQuantity),
+		0
+	);
+
 	const addConfiguration = () => {
 		if (!quantity || !configQuantity) return;
 		const config = {
@@ -389,18 +394,8 @@ export default function Home() {
 						onClick={addConfiguration}
 						disabled={
 							!quantity ||
-							configurations.reduce(
-								(sum, config) =>
-									sum + Number(config.configQuantity),
-								0
-							) === Number(quantity) ||
-							configurations.reduce(
-								(sum, config) =>
-									sum + Number(config.configQuantity),
-								0
-							) +
-								configQuantity >
-								Number(quantity)
+							totalConfigured === Number(quantity) ||
+							totalConfigured + configQuantity > Number(quantity)
 						}
 						className="px-4 py-2 rounded-md font-medium transition bg-green-600 hover:bg-green-500 disabled:opacity-50"
 					>
@@ -414,12 +409,7 @@ export default function Home() {
 				<h2 className="text-2xl font-medium text-gray-200">Summary</h2>
 				<div className="flex justify-between items-end mb-3">
 					<h3 className="text-md font-medium text-gray-400">
-						Meals Configured:{" "}
-						{configurations.reduce(
-							(sum, config) =>
-								sum + Number(config.configQuantity),
-							0
-						)}
+						Meals Configured: {totalConfigured}
 					</h3>
 					<h3 className="text-md font-medium text-gray-400">
 						Total Meals: {quantity}
@@ -429,13 +419,8 @@ export default function Home() {
 					<p className="font-medium">No meals added.</p>
 				) : (
 					configurations.map((config, index) => {
-						const totalWithout = configurations.reduce(
-							(sum, c, i) =>
-								i === index
-									? sum
-									: sum + Number(c.configQuantity),
-							0
-						);
+						const totalWithout =
+							totalConfigured - config.configQuantity;
 						const plusDisabled =
 							totalWithout + (config.configQuantity + 1) >
 							Number(quantity);
