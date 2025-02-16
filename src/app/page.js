@@ -349,6 +349,7 @@ export default function Home() {
 					</div>
 				</div>
 
+				{/* Configuration Quantity */}
 				<div className="mb-6">
 					<h2 className="text-2xl font-medium mb-3 text-gray-200">
 						Quantity
@@ -389,13 +390,16 @@ export default function Home() {
 					</div>
 				</div>
 
+				{/* Add Configuration */}
 				<div>
 					<button
 						onClick={addConfiguration}
 						disabled={
 							!quantity ||
 							totalConfigured === Number(quantity) ||
-							totalConfigured + configQuantity > Number(quantity)
+							totalConfigured + configQuantity >
+								Number(quantity) ||
+							!size
 						}
 						className="px-4 py-2 rounded-md font-medium transition bg-green-600 hover:bg-green-500 disabled:opacity-50"
 					>
@@ -407,16 +411,20 @@ export default function Home() {
 			{/* Meal Configurations Summary */}
 			<div className="w-full max-w-3xl bg-gray-800 rounded-lg p-6 shadow-md mt-8">
 				<h2 className="text-2xl font-medium text-gray-200">Summary</h2>
-				<div className="flex justify-between items-end mb-3">
-					<h3 className="text-md font-medium text-gray-400">
-						Meals Configured: {totalConfigured}
-					</h3>
-					<h3 className="text-md font-medium text-gray-400">
-						Total Meals: {quantity}
-					</h3>
-				</div>
+				{configurations.length !== 0 && (
+					<div className="flex justify-between items-end mb-3">
+						<h3 className="text-md font-medium text-gray-400">
+							Meals Configured: {totalConfigured}
+						</h3>
+						<h3 className="text-md font-medium text-gray-400">
+							Total Meals: {quantity}
+						</h3>
+					</div>
+				)}
 				{configurations.length === 0 ? (
-					<p className="font-medium">No meals added.</p>
+					<p className="font-medium mt-2 text-gray-400">
+						No meals added.
+					</p>
 				) : (
 					configurations.map((config, index) => {
 						const totalWithout =
@@ -424,58 +432,70 @@ export default function Home() {
 						const plusDisabled =
 							totalWithout + (config.configQuantity + 1) >
 							Number(quantity);
+						const details = [
+							{
+								label: "Size:",
+								value: config.size || "None",
+								extra: "Weight",
+							},
+							{
+								label: "Base:",
+								value: config.base.length
+									? config.base.join(", ")
+									: "None",
+								extra: "100g (WIP)",
+							},
+							{
+								label: "Protein:",
+								value: config.meat.length
+									? config.meat
+											.map((m) =>
+												m === "Chicken"
+													? `${
+															config.flavour
+																? config.flavour
+																: "Plain"
+													  } Chicken`
+													: m
+											)
+											.join(", ")
+									: "None",
+								extra: "100g (WIP)",
+							},
+							{
+								label: "Vegetables:",
+								value: config.veg.length
+									? config.veg.join(", ")
+									: "None",
+								extra: "100g (WIP)",
+							},
+							{
+								label: "Dressing:",
+								value: config.dressing || "None",
+								extra: "",
+							},
+						];
 						return (
 							<div
 								key={index}
 								className="relative bg-gray-700 p-4 rounded-md mt-4"
 							>
-								<div className="grid grid-cols-2 gap-4 m-auto">
-									<p className="font-medium text-gray-300">
-										Size:
-									</p>
-									<p className="font-medium">
-										{config.size || "None"}
-									</p>
-									<p className="font-medium text-gray-300">
-										Base:
-									</p>
-									<p className="font-medium">
-										{config.base.length > 0
-											? config.base.join(", ")
-											: "None"}
-									</p>
-									<p className="font-medium text-gray-300">
-										Protein:
-									</p>
-									<p className="font-medium">
-										{config.meat.length > 0
-											? config.meat
-													.map((m) =>
-														m === "Chicken"
-															? `${
-																	config.flavour
-																		? config.flavour
-																		: "Plain"
-															  } Chicken`
-															: m
-													)
-													.join(", ")
-											: "None"}
-									</p>
-									<p className="font-medium text-gray-300">
-										Vegetables:
-									</p>
-									<p className="font-medium">
-										{config.veg.length > 0
-											? config.veg.join(", ")
-											: "None"}
-									</p>
-									<p className="font-medium text-gray-300">
-										Dressing:
-									</p>
-									<p className="font-medium">
-										{config.dressing || "None"}
-									</p>
+								<div className="grid grid-cols-3 gap-4 m-auto">
+									{details.map((item, idx) => (
+										<React.Fragment key={idx}>
+											<p className="font-medium text-gray-300">
+												{item.label}
+											</p>
+											<p className="font-medium">
+												{item.value}
+											</p>
+											{item.extra && (
+												<p className="font-medium">
+													{item.extra}
+												</p>
+											)}
+										</React.Fragment>
+									))}
 								</div>
 								<div className="flex justify-between mt-4">
 									<div className="flex">
